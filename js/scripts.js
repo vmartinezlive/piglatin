@@ -2,10 +2,21 @@
 var vowels = ['a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U'];
 var consonants = ['b', 'B', 'c', 'C', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z '];
 
+function phraseTranslation(phrase){
+  var phraseArray = phrase.split(" ");
+  var translatedPhrase = [];
+  for (var i = 0; i < phraseArray.length; i ++) {
+    var translatedWord = translateToPigLatin(phraseArray[i]);
+    translatedPhrase.push(translatedWord);
+  }
+    return translatedPhrase.join(" ");
+}
 
 function translateToPigLatin(word){
   if (startsWithVowel(word)) {
     return word + "way";
+  } else if (word.includes('qu') || word.includes('Qu')) {
+    return exceptionQu(word);
   } else if (startsWithConsonant(word)){
     return transformConsonantWord(word);
   }
@@ -21,6 +32,11 @@ function startsWithVowel(word) {
       return false;
     }
   }
+}
+
+function exceptionQu(word){
+    var index = (word.indexOf('u')) + 1;
+    return word.slice(index) + word.slice(0, index) + "ay";
 }
 
 function startsWithConsonant (word) {
@@ -48,9 +64,9 @@ $(document).ready(function() {
  $('#pig-latin-form').submit(function(event) {
    event.preventDefault();
 
-   var phraseToTranslate = ($('input#pig-latin').val()).toLowerCase();
-   var result = translateToPigLatin(phraseToTranslate);
+   var inputToTranslate = ($('input#pig-latin').val()).toLowerCase();
+   var result = phraseTranslation(inputToTranslate);
    $('#results').text(result);
-console.log(phraseToTranslate);
+
  });
 });
