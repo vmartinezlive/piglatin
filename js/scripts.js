@@ -2,36 +2,30 @@
 var vowels = ['a', 'e', 'i', 'o', 'u'];
 var consonants = ['b', 'c' , 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y'];
 
-function isVowel(letter) {
-  vowels.forEach(function(vowel){
-    if (letter === vowel) {
+function translateToPigLatin(word){
+  if (isVowel(word)) {
+    return word+"way";
+  }
+}
+
+function isVowel(word) {
+  var letter = word.slice(0, 1);
+  for (var i = 0; i < vowels.length; i++) {
+    if (vowels.includes(letter)) {
       return true;
     } else {
       return false;
     }
-  });
-  // for (var i = 0; i < vowels.length; i++) {
-  //   console.log(vowels[i]);
-  //   if (letter === vowels[i]) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  }
 }
-//
-// // function isConsonant (letter) {
-// //   for (var i=0; i < consonants.length; i++) {
-// //     if (letter === consonants[i]) {
-// //       return true;
-// //     } else {
-// //       return false;
-// //     }
-// //   }
-// // }
-function translateToPitLatin(word){
-  if (word === "a" || word === "e" || word === "i") {
-    return word+"way";
+
+function isConsonant (letter) {
+  for (var i = 0; i < consonants.length; i++) {
+    if (consonants.includes(letter)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -41,7 +35,7 @@ $(document).ready(function() {
    event.preventDefault();
 
    var phraseToTranslate = $('input#pig-latin').val();
-   var result = isVowel(phraseToTranslate);
+   var result = translateToPigLatin(phraseToTranslate);
    $('#results').text(result);
 
  });
