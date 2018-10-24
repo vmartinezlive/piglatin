@@ -1,6 +1,8 @@
 //business logic
-var vowels = ['a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U'];
+var vowels = ['a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U', 'y', 'Y'];
 var consonants = ['b', 'B', 'c', 'C', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S', 't', 'T', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z '];
+
+
 
 function phraseTranslation(phrase){
   var phraseArray = phrase.split(" ");
@@ -13,9 +15,11 @@ function phraseTranslation(phrase){
 }
 
 function translateToPigLatin(word){
-  if (startsWithVowel(word)) {
+  if  (word.charAt(0) === "y"){
+    return firstLetterY(word);
+  } else if (startsWithVowel(word)) {
     return word + "way";
-  } else if (word.includes('qu') || word.includes('Qu')) {
+  } else if (word.includes('qu')) {
     return exceptionQu(word);
   } else if (startsWithConsonant(word)){
     return transformConsonantWord(word);
@@ -35,8 +39,12 @@ function startsWithVowel(word) {
 }
 
 function exceptionQu(word){
-    var index = (word.indexOf('u')) + 1;
-    return word.slice(index) + word.slice(0, index) + "ay";
+  var index = (word.indexOf('u')) + 1;
+  return word.slice(index) + word.slice(0, index) + "ay";
+}
+
+function firstLetterY(word){
+  return word.slice(1) + word.slice(0, 1) + "ay";
 }
 
 function startsWithConsonant (word) {
