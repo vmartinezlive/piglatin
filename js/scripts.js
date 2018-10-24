@@ -5,6 +5,10 @@ var consonants = ['b', 'c' , 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', '
 function translateToPigLatin(word){
   if (isVowel(word)) {
     return word+"way";
+  } else if (isConsonant(word)){
+    var letter = word.slice(0, 1);
+    var remainder = word.slice(1);
+    return remainder + letter + "ay";
   }
 }
 
@@ -19,7 +23,9 @@ function isVowel(word) {
   }
 }
 
-function isConsonant (letter) {
+function isConsonant (word) {
+  var letter = word.slice(0, 1);
+  var remainder = word.slice(1);
   for (var i = 0; i < consonants.length; i++) {
     if (consonants.includes(letter)) {
       return true;
